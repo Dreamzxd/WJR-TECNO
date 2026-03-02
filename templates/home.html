@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="hero">
+  <h2>Soluciones tecnológicas para personas y empresas</h2>
+  <p>En WJR Tecnosoluciones atendemos reparación de equipos, venta de repuestos y distribución de accesorios al mayor.</p>
+  <div class="cards">
+    <article>
+      <h3>Bloque 1: Reparación y repuestos</h3>
+      <p>Solicita servicios técnicos, diagnósticos y compra repuestos confiables.</p>
+      <a class="btn" href="{{ url_for('servicios_reparacion') }}">Explorar</a>
+    </article>
+    <article>
+      <h3>Bloque 2: Accesorios y mayoristas</h3>
+      <p>Compra accesorios y productos tecnológicos para tu negocio.</p>
+      <a class="btn" href="{{ url_for('venta_mayor') }}">Ver catálogo</a>
+    </article>
+  </div>
+</section>
+{% endblock %}
