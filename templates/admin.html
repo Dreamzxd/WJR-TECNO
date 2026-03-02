@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Panel de administración</h2>
+
+<section>
+  <h3>Crear producto</h3>
+  <form method="post" class="form" action="{{ url_for('crear_producto') }}">
+    <label>Nombre <input type="text" name="nombre" required></label>
+    <label>Descripción <textarea name="descripcion" required></textarea></label>
+    <label>Precio <input type="number" step="0.01" name="precio" required></label>
+    <label>Stock <input type="number" name="stock" required></label>
+    <label>Tipo
+      <select name="tipo">
+        <option value="reparacion">Reparación/Repuesto</option>
+        <option value="mayor">Venta al mayor</option>
+      </select>
+    </label>
+    <button type="submit">Guardar producto</button>
+  </form>
+</section>
+
+<section>
+  <h3>Gestionar productos y precios</h3>
+  {% for p in productos %}
+  <form method="post" action="{{ url_for('actualizar_producto', producto_id=p.id) }}" class="form inline-form">
+    <input type="text" name="nombre" value="{{ p.nombre }}" required>
+    <input type="text" name="descripcion" value="{{ p.descripcion }}" required>
+    <input type="number" step="0.01" name="precio" value="{{ p.precio }}" required>
+    <input type="number" name="stock" value="{{ p.stock }}" required>
+    <select name="tipo">
+      <option value="reparacion" {% if p.tipo=='reparacion' %}selected{% endif %}>Reparación</option>
+      <option value="mayor" {% if p.tipo=='mayor' %}selected{% endif %}>Mayor</option>
+    </select>
+    <button type="submit">Actualizar</button>
+  </form>
+  <form method="post" action="{{ url_for('eliminar_producto', producto_id=p.id) }}">
+    <button type="submit" class="danger">Eliminar producto</button>
+  </form>
+  <hr>
+  {% endfor %}
+</section>
+
+<section>
+  <h3>Gestionar usuarios</h3>
+  {% for u in usuarios %}
+    <div class="user-row">
+      <span>{{ u.nombre }} ({{ u.email }}) {% if u.is_admin %}[ADMIN]{% endif %}</span>
+      {% if not u.is_admin %}
+      <form method="post" action="{{ url_for('eliminar_usuario', user_id=u.id) }}">
+        <button type="submit" class="danger">Eliminar usuario</button>
+      </form>
+      {% endif %}
+    </div>
+  {% endfor %}
+</section>
+{% endblock %}

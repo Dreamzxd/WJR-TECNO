@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>{{ titulo }}</h2>
+<div class="grid">
+  {% for producto in productos %}
+    <article class="product-card">
+      <h3>{{ producto.nombre }}</h3>
+      <p>{{ producto.descripcion }}</p>
+      <p><strong>${{ '%.2f'|format(producto.precio) }}</strong> · Stock: {{ producto.stock }}</p>
+      {% if current_user.is_authenticated %}
+      <form method="post" action="{{ url_for('agregar_carrito', producto_id=producto.id) }}">
+        <button type="submit">Agregar al carrito</button>
+      </form>
+      {% else %}
+      <p>Inicia sesión para agregar al carrito.</p>
+      {% endif %}
+    </article>
+  {% else %}
+    <p>No hay productos disponibles.</p>
+  {% endfor %}
+</div>
+{% endblock %}
