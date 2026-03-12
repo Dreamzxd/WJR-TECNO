@@ -4,7 +4,7 @@
 
 <section>
   <h3>Crear producto</h3>
-  <form method="post" class="form" action="{{ url_for('crear_producto') }}">
+  <form method="post" class="form" action="{{ url_for('crear_producto') }}" enctype="multipart/form-data">
     <label>Nombre <input type="text" name="nombre" required></label>
     <label>Descripción <textarea name="descripcion" required></textarea></label>
     <label>Precio <input type="number" step="0.01" name="precio" required></label>
@@ -15,6 +15,12 @@
         <option value="mayor">Venta al mayor</option>
       </select>
     </label>
+    <label>Imagen del producto (URL)
+      <input type="url" name="imagen_url" placeholder="https://...">
+    </label>
+    <label>o subir imagen
+      <input type="file" name="imagen_archivo" accept="image/*">
+    </label>
     <button type="submit">Guardar producto</button>
   </form>
 </section>
@@ -22,7 +28,7 @@
 <section>
   <h3>Gestionar productos y precios</h3>
   {% for p in productos %}
-  <form method="post" action="{{ url_for('actualizar_producto', producto_id=p.id) }}" class="form inline-form">
+  <form method="post" action="{{ url_for('actualizar_producto', producto_id=p.id) }}" class="form inline-form" enctype="multipart/form-data">
     <input type="text" name="nombre" value="{{ p.nombre }}" required>
     <input type="text" name="descripcion" value="{{ p.descripcion }}" required>
     <input type="number" step="0.01" name="precio" value="{{ p.precio }}" required>
@@ -31,6 +37,8 @@
       <option value="reparacion" {% if p.tipo=='reparacion' %}selected{% endif %}>Reparación</option>
       <option value="mayor" {% if p.tipo=='mayor' %}selected{% endif %}>Mayor</option>
     </select>
+    <input type="url" name="imagen_url" value="{{ p.imagen_url or '' }}" placeholder="URL de imagen">
+    <input type="file" name="imagen_archivo" accept="image/*">
     <button type="submit">Actualizar</button>
   </form>
   <form method="post" action="{{ url_for('eliminar_producto', producto_id=p.id) }}">
@@ -38,6 +46,20 @@
   </form>
   <hr>
   {% endfor %}
+</section>
+
+<section>
+  <h3>Acerca de nosotros y enlaces de contacto</h3>
+  <form method="post" class="form" action="{{ url_for('actualizar_acerca_de') }}">
+    <label>Título <input type="text" name="about_title" value="{{ site_content.about_title }}" required></label>
+    <label>Descripción
+      <textarea name="about_body" rows="4" required>{{ site_content.about_body }}</textarea>
+    </label>
+    <label>Link WhatsApp <input type="url" name="whatsapp_link" value="{{ site_content.whatsapp_link }}" required></label>
+    <label>Link Facebook <input type="url" name="facebook_link" value="{{ site_content.facebook_link }}" required></label>
+    <label>Link Instagram <input type="url" name="instagram_link" value="{{ site_content.instagram_link }}" required></label>
+    <button type="submit">Guardar sección y redes</button>
+  </form>
 </section>
 
 <section>

@@ -7,8 +7,11 @@
   <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
-  <header>
-    <h1>WJR Tecnosoluciones</h1>
+  <header class="main-header">
+    <div class="brand-wrap">
+      <img src="{{ url_for('static', filename='img/wjr-logo.svg') }}" alt="Logo WJR" class="brand-logo">
+      <h1>WJR Tecnosoluciones</h1>
+    </div>
     <nav>
       <a href="{{ url_for('home') }}">Inicio</a>
       <a href="{{ url_for('servicios_reparacion') }}">Reparación y Repuestos</a>
@@ -36,5 +39,9 @@
 
     {% block content %}{% endblock %}
   </main>
+
+  <a class="floating-contact" href="#redes-sociales" aria-label="Contactar por redes">
+    <img src="{{ url_for('static', filename='img/wjr-logo.svg') }}" alt="Logo WJR">
+  </a>
 </body>
 </html>
