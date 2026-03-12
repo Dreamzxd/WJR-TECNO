@@ -1,3 +1,4 @@
+import os
 from functools import wraps
 from pathlib import Path
 from uuid import uuid4
@@ -10,8 +11,11 @@ from werkzeug.utils import secure_filename
 from sqlalchemy import text
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = 'cambia-esta-clave-secreta'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///wjr_tecnosoluciones.db'
+app.config['SECRET_KEY'] = os.getenv('SECRET_KEY', 'cambia-esta-clave-secreta')
+database_url = os.getenv('DATABASE_URL', 'sqlite:///wjr_tecnosoluciones.db')
+if database_url.startswith('postgres://'):
+    database_url = database_url.replace('postgres://', 'postgresql://', 1)
+app.config['SQLALCHEMY_DATABASE_URI'] = database_url
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['UPLOAD_FOLDER'] = 'static/uploads/products'
 
