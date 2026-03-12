@@ -1,11 +1,20 @@
 {% extends 'base.html' %}
+{% block body_class %}auth-theme{% endblock %}
+{% block main_class %}auth-main{% endblock %}
 {% block content %}
-<section class="centered-page">
-  <h2>Iniciar sesión</h2>
-  <form method="post" class="form">
-    <label>Email <input type="email" name="email" required></label>
-    <label>Contraseña <input type="password" name="password" required></label>
-    <button type="submit">Entrar</button>
-  </form>
+<section class="auth-shell">
+  <span class="auth-blob blob-top" aria-hidden="true"></span>
+  <span class="auth-blob blob-bottom" aria-hidden="true"></span>
+
+  <div class="auth-card centered-page">
+    <p class="auth-eyebrow">WJR Tecnosoluciones</p>
+    <h2>Qué bueno verte de nuevo</h2>
+    <form method="post" class="form auth-form">
+      <label>Email <input type="email" name="email" placeholder="ej. tuemail@dominio.com" required></label>
+      <label>Contraseña <input type="password" name="password" placeholder="••••••••" required></label>
+      <button type="submit">Entrar</button>
+    </form>
+    <p class="auth-links"><a href="{{ url_for('registro') }}">¿No tienes cuenta? Regístrate</a></p>
+  </div>
 </section>
 {% endblock %}
