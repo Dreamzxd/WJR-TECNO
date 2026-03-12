@@ -344,7 +344,7 @@ def actualizar_acerca_de():
     site_content.about_title = request.form.get('about_title', '').strip() or 'Acerca de nosotros'
     site_content.about_body = request.form.get('about_body', '').strip() or site_content.about_body
     site_content.whatsapp_link = request.form.get('whatsapp_link', '').strip() or site_content.whatsapp_link
-    site_content.facebook_link = request.form.get('facebook_link', '').strip() or site_content.facebook_link
+    site_content.facebook_link = request.form.get('https://www.facebook.com/share/1G95SmYMcL/').strip() or site_content.facebook_link
     site_content.instagram_link = request.form.get('instagram_link', '').strip() or site_content.instagram_link
 
     db.session.commit()
