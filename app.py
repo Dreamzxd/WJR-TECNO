@@ -16,6 +16,9 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['UPLOAD_FOLDER'] = 'static/uploads/products'
 
 ALLOWED_IMAGE_EXTENSIONS = {'png', 'jpg', 'jpeg', 'webp', 'gif'}
+DEFAULT_WHATSAPP_LINK = 'https://wa.me/573246060069'
+DEFAULT_FACEBOOK_LINK = 'https://www.facebook.com/share/1G95SmYMcL/'
+DEFAULT_INSTAGRAM_LINK = 'https://www.instagram.com/wjrtecnosoluciones_c?igsh=MTBndDZ0a29jenlpOA=='
 
 
 db = SQLAlchemy(app)
@@ -56,9 +59,9 @@ class SiteContent(db.Model):
         db.Text,
         default='Somos WJR Tecnosoluciones. Aquí puedes contar quiénes son, qué hacen y cuál es su propósito.',
     )
-    whatsapp_link = db.Column(db.String(255), default='https://wa.me/0000000000')
-    facebook_link = db.Column(db.String(255), default='https://facebook.com')
-    instagram_link = db.Column(db.String(255), default='https://instagram.com')
+    whatsapp_link = db.Column(db.String(255), default=DEFAULT_WHATSAPP_LINK)
+    facebook_link = db.Column(db.String(255), default=DEFAULT_FACEBOOK_LINK)
+    instagram_link = db.Column(db.String(255), default=DEFAULT_INSTAGRAM_LINK)
 
 
 class CartItem(db.Model):
@@ -344,7 +347,7 @@ def actualizar_acerca_de():
     site_content.about_title = request.form.get('about_title', '').strip() or 'Acerca de nosotros'
     site_content.about_body = request.form.get('about_body', '').strip() or site_content.about_body
     site_content.whatsapp_link = request.form.get('whatsapp_link', '').strip() or site_content.whatsapp_link
-    site_content.facebook_link = request.form.get('https://www.facebook.com/share/1G95SmYMcL/').strip() or site_content.facebook_link
+    site_content.facebook_link = request.form.get('facebook_link', '').strip() or site_content.facebook_link
     site_content.instagram_link = request.form.get('instagram_link', '').strip() or site_content.instagram_link
 
     db.session.commit()
@@ -366,7 +369,14 @@ def seed_data():
             Product(nombre='Teclado mecánico', descripcion='Producto gamer al mayor para distribuidores.', precio=29.99, stock=70, tipo='mayor'),
         ])
 
-    get_site_content()
+    site_content = get_site_content()
+    if not site_content.whatsapp_link or site_content.whatsapp_link == 'https://wa.me/0000000000':
+        site_content.whatsapp_link = DEFAULT_WHATSAPP_LINK
+    if not site_content.facebook_link or site_content.facebook_link == 'https://facebook.com':
+        site_content.facebook_link = DEFAULT_FACEBOOK_LINK
+    if not site_content.instagram_link or site_content.instagram_link == 'https://instagram.com':
+        site_content.instagram_link = DEFAULT_INSTAGRAM_LINK
+
     db.session.commit()
 
 
