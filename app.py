@@ -98,6 +98,11 @@ def get_site_content() -> SiteContent:
     return content
 
 
+@app.context_processor
+def inject_site_content():
+    return {'global_site_content': get_site_content()}
+
+
 def allowed_file(filename: str) -> bool:
     if '.' not in filename:
         return False

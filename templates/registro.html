@@ -1,10 +1,12 @@
 {% extends 'base.html' %}
 {% block content %}
-<h2>Registro de cliente</h2>
-<form method="post" class="form">
-  <label>Nombre <input type="text" name="nombre" required></label>
-  <label>Email <input type="email" name="email" required></label>
-  <label>Contraseña <input type="password" name="password" required></label>
-  <button type="submit">Crear cuenta</button>
-</form>
+<section class="centered-page">
+  <h2>Registro de cliente</h2>
+  <form method="post" class="form">
+    <label>Nombre <input type="text" name="nombre" required></label>
+    <label>Email <input type="email" name="email" required></label>
+    <label>Contraseña <input type="password" name="password" required></label>
+    <button type="submit">Crear cuenta</button>
+  </form>
+</section>
 {% endblock %}
