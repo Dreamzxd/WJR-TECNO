@@ -213,8 +213,97 @@ th, td { border: 1px solid #e4e8ef; padding: .6rem; text-align: left; }
 .floating-contact img { width: 52px; height: 52px; border-radius: 50%; }
 
 @media (max-width: 700px) {
-  main { padding: 1rem 1rem 5rem; }
-  .main-header h1 { font-size: 1.6rem; }
+  .main-header {
+    padding: .9rem .85rem 1.1rem;
+  }
+
+  .brand-logo {
+    width: 72px;
+    height: 72px;
+  }
+
+  .main-header h1 { font-size: 1.45rem; }
+
+  nav {
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    gap: .55rem;
+    padding: .35rem .2rem .15rem;
+    overflow-x: auto;
+    scrollbar-width: thin;
+    -webkit-overflow-scrolling: touch;
+    mask-image: linear-gradient(to right, transparent 0, #000 4%, #000 96%, transparent 100%);
+  }
+
+  nav::-webkit-scrollbar {
+    height: 6px;
+  }
+
+  nav::-webkit-scrollbar-thumb {
+    background: rgba(148, 181, 255, .35);
+    border-radius: 999px;
+  }
+
+  nav a {
+    flex: 0 0 auto;
+    min-width: max-content;
+    text-align: center;
+    padding: .55rem .95rem;
+    border: 1px solid rgba(148, 181, 255, .3);
+    backdrop-filter: blur(4px);
+    box-shadow: 0 6px 14px rgba(7, 17, 42, .28);
+  }
+
+  main { padding: 1rem .85rem 5rem; }
+
+  .cards,
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .user-row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .inline-form {
+    overflow-x: auto;
+  }
+
+  table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+
+  .floating-contact {
+    width: 58px;
+    height: 58px;
+  }
+
+  .floating-contact img {
+    width: 45px;
+    height: 45px;
+  }
+}
+
+@media (max-width: 480px) {
+  nav {
+    gap: .45rem;
+    padding-inline: .1rem;
+  }
+
+  nav a {
+    font-size: .92rem;
+    padding: .5rem .85rem;
+  }
+
+  .hero,
+  .about-us,
+  .social-box,
+  .centered-page {
+    padding: 1rem;
+  }
 }
 
 body.auth-theme {
