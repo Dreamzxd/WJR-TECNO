@@ -1,10 +1,12 @@
 {% extends 'base.html' %}
 {% block content %}
-<h2>Contáctanos</h2>
-<form method="post" class="form">
-  <label>Nombre <input type="text" name="nombre" required></label>
-  <label>Teléfono <input type="text" name="telefono" required></label>
-  <label>Mensaje <textarea name="mensaje" required></textarea></label>
-  <button type="submit">Enviar</button>
-</form>
+<section class="centered-page">
+  <h2>Contáctanos</h2>
+  <form method="post" class="form">
+    <label>Nombre <input type="text" name="nombre" required></label>
+    <label>Teléfono <input type="text" name="telefono" required></label>
+    <label>Mensaje <textarea name="mensaje" required></textarea></label>
+    <button type="submit">Enviar</button>
+  </form>
+</section>
 {% endblock %}
