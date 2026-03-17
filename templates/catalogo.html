@@ -4,12 +4,9 @@
 <div class="grid">
   {% for producto in productos %}
     <article class="product-card">
-      {% if producto.imagen_url %}
-        {% if producto.imagen_url.startswith('http') %}
-          <img class="product-image" src="{{ producto.imagen_url }}" alt="{{ producto.nombre }}">
-        {% else %}
-          <img class="product-image" src="{{ url_for('static', filename=producto.imagen_url) }}" alt="{{ producto.nombre }}">
-        {% endif %}
+      {% set image_src = resolve_product_image(producto.imagen_url) %}
+      {% if image_src %}
+        <img class="product-image" src="{{ image_src }}" alt="{{ producto.nombre }}">
       {% else %}
         <div class="product-image placeholder">Imagen próximamente</div>
       {% endif %}

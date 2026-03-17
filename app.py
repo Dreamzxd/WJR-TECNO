@@ -133,6 +133,32 @@ def save_uploaded_image(image_file):
     return f"uploads/products/{filename}"
 
 
+def resolve_product_image(imagen_url: str | None) -> str | None:
+    if not imagen_url:
+        return None
+
+    normalized = imagen_url.strip().replace('\\', '/')
+    if not normalized:
+        return None
+
+    if normalized.startswith(('http://', 'https://', '//', 'data:image/')):
+        return normalized
+
+    if normalized.startswith('/static/'):
+        normalized = normalized.removeprefix('/static/')
+    elif normalized.startswith('static/'):
+        normalized = normalized.removeprefix('static/')
+    elif normalized.startswith('/'):
+        return normalized
+
+    return url_for('static', filename=normalized)
+
+
+@app.context_processor
+def inject_template_helpers():
+    return {'resolve_product_image': resolve_product_image}
+
+
 def migrate_existing_schema():
     with db.engine.begin() as connection:
         columns = {row[1] for row in connection.execute(text('PRAGMA table_info(product)'))}
