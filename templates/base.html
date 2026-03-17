@@ -19,7 +19,6 @@
       <a href="{{ url_for('contacto') }}">Contacto</a>
       {% if current_user.is_authenticated %}
         <a href="{{ url_for('carrito') }}">Carrito</a>
-        {% if current_user.is_admin %}<a href="{{ url_for('admin_dashboard') }}">Admin</a>{% endif %}
         <a href="{{ url_for('logout') }}">Salir</a>
       {% else %}
         <a href="{{ url_for('login') }}">Entrar</a>
@@ -40,9 +39,11 @@
     {% block content %}{% endblock %}
   </main>
 
-  <a class="floating-contact" href="#" aria-label="Ir al inicio">
-    <img src="{{ url_for('static', filename='img/wjr-logo.svg') }}" alt="Logo WJR">
+  {% if current_user.is_authenticated and current_user.is_admin %}
+  <a class="floating-contact floating-admin" href="{{ url_for('admin_dashboard') }}" aria-label="Ir al panel de administración" title="Panel de administración">
+    Admin
   </a>
+  {% endif %}
 
   <footer class="main-footer">
     <p>© WJR Tecnosoluciones. Todos los derechos reservados.</p>

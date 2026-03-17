@@ -297,6 +297,55 @@ def admin_dashboard():
     return render_template('admin.html', usuarios=usuarios, productos=productos, site_content=site_content)
 
 
+@app.post('/admin/usuarios/crear')
+@login_required
+@admin_required
+def crear_usuario_admin():
+    nombre = request.form.get('nombre', '').strip()
+    email = request.form.get('email', '').strip().lower()
+    password = request.form.get('password', '')
+    is_admin = request.form.get('is_admin') == 'on'
+
+    if not nombre or not email or not password:
+        flash('Completa nombre, email y contraseña para crear el usuario.', 'warning')
+        return redirect(url_for('admin_dashboard'))
+
+    if User.query.filter_by(email=email).first():
+        flash('Ya existe un usuario con ese correo.', 'warning')
+        return redirect(url_for('admin_dashboard'))
+
+    nuevo_usuario = User(nombre=nombre, email=email, is_admin=is_admin)
+    nuevo_usuario.set_password(password)
+    db.session.add(nuevo_usuario)
+    db.session.commit()
+
+    if is_admin:
+        flash('Usuario administrador creado correctamente.', 'success')
+    else:
+        flash('Usuario creado correctamente.', 'success')
+    return redirect(url_for('admin_dashboard'))
+
+
+@app.post('/admin/usuarios/rol/<int:user_id>')
+@login_required
+@admin_required
+def cambiar_rol_admin(user_id):
+    usuario = User.query.get_or_404(user_id)
+
+    if usuario.id == current_user.id:
+        flash('No puedes cambiar tu propio rol desde esta pantalla.', 'warning')
+        return redirect(url_for('admin_dashboard'))
+
+    usuario.is_admin = not usuario.is_admin
+    db.session.commit()
+
+    if usuario.is_admin:
+        flash(f'{usuario.nombre} ahora es administrador.', 'success')
+    else:
+        flash(f'Se quitó el rol admin a {usuario.nombre}.', 'info')
+    return redirect(url_for('admin_dashboard'))
+
+
 @app.post('/admin/usuarios/eliminar/<int:user_id>')
 @login_required
 @admin_required

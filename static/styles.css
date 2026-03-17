@@ -74,6 +74,8 @@ body::after {
 .brand-logo { width: 88px; height: 88px; border-radius: 50%; box-shadow: 0 4px 14px rgba(239, 35, 60, .45); }
 .main-header h1 { margin: 0; font-size: 2rem; letter-spacing: .5px; }
 
+
+
 nav { display: flex; justify-content: center; gap: .8rem; flex-wrap: wrap; }
 nav a {
   color: #e8efff;
@@ -176,6 +178,39 @@ th, td { border: 1px solid #e4e8ef; padding: .6rem; text-align: left; }
 .user-row { display: flex; justify-content: space-between; gap: .7rem; background: white; color: var(--surface-text); margin-bottom: .5rem; padding: .6rem; border-radius: 8px; align-items: center; }
 .inline-form { background: #fff; color: var(--surface-text); padding: .6rem; border-radius: 10px; }
 
+.admin-product-editor {
+  background: #fff;
+  color: var(--surface-text);
+  border-radius: 10px;
+  padding: .7rem;
+  margin-bottom: .8rem;
+}
+
+.admin-inline-form {
+  max-width: 760px;
+  margin-bottom: .5rem;
+}
+
+.admin-inline-actions {
+  display: flex;
+  gap: .5rem;
+  flex-wrap: wrap;
+}
+
+.admin-user-create {
+  background: #fff;
+  color: var(--surface-text);
+  padding: .8rem;
+  border-radius: 10px;
+}
+
+.admin-checkbox {
+  display: flex;
+  align-items: center;
+  gap: .45rem;
+}
+
+
 .product-image {
   width: 100%;
   height: 180px;
@@ -234,6 +269,14 @@ th, td { border: 1px solid #e4e8ef; padding: .6rem; text-align: left; }
 }
 .floating-contact img { width: 52px; height: 52px; border-radius: 50%; }
 
+.floating-admin {
+  background: #b91c1c;
+  color: #fff;
+  text-decoration: none;
+  font-weight: 700;
+  border: 2px solid #ef4444;
+}
+
 @media (max-width: 700px) {
   .main-header {
     padding: .9rem .85rem 1.1rem;
@@ -256,6 +299,7 @@ th, td { border: 1px solid #e4e8ef; padding: .6rem; text-align: left; }
     -webkit-overflow-scrolling: touch;
     mask-image: linear-gradient(to right, transparent 0, #000 4%, #000 96%, transparent 100%);
   }
+
 
   nav::-webkit-scrollbar {
     height: 6px;
