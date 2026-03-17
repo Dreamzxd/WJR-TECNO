@@ -74,7 +74,41 @@ body::after {
 .brand-logo { width: 88px; height: 88px; border-radius: 50%; box-shadow: 0 4px 14px rgba(239, 35, 60, .45); }
 .main-header h1 { margin: 0; font-size: 2rem; letter-spacing: .5px; }
 
-nav { display: flex; justify-content: center; gap: .8rem; flex-wrap: wrap; }
+
+
+nav {
+  display: flex;
+  justify-content: center;
+  gap: .9rem;
+  flex-wrap: wrap;
+}
+
+.nav-section {
+  display: grid;
+  gap: .35rem;
+  justify-items: center;
+}
+
+.nav-section-label {
+  font-size: .75rem;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: #9cb4ea;
+}
+
+.nav-links {
+  display: flex;
+  justify-content: center;
+  gap: .65rem;
+  flex-wrap: wrap;
+}
+
+.admin-access {
+  margin-top: .8rem;
+  display: flex;
+  justify-content: center;
+}
+
 nav a {
   color: #e8efff;
   text-decoration: none;
@@ -176,6 +210,18 @@ th, td { border: 1px solid #e4e8ef; padding: .6rem; text-align: left; }
 .user-row { display: flex; justify-content: space-between; gap: .7rem; background: white; color: var(--surface-text); margin-bottom: .5rem; padding: .6rem; border-radius: 8px; align-items: center; }
 .inline-form { background: #fff; color: var(--surface-text); padding: .6rem; border-radius: 10px; }
 
+.admin-shell h2 { text-align: center; margin-bottom: 1.1rem; }
+.admin-grid { display: grid; gap: 1rem; }
+.admin-section { background: var(--card); color: var(--surface-text); padding: 1rem; border-radius: 14px; box-shadow: 0 8px 20px rgba(16,24,40,.08); }
+.admin-section h3 { margin-top: .1rem; text-align: center; }
+.admin-form { margin: 0 auto; }
+.admin-section-wide { max-width: 960px; margin: 0 auto; width: 100%; }
+.admin-edit-card { border: 1px solid #dde5f4; border-radius: 12px; padding: .8rem; margin-bottom: .8rem; background: #f9fbff; }
+.admin-inline-form { margin: 0 auto .7rem; max-width: 880px; justify-items: center; }
+.admin-inline-form input, .admin-inline-form select { width: min(100%, 620px); }
+.admin-inline-form button, .admin-delete-form { justify-self: center; }
+.admin-delete-form { display: flex; justify-content: center; }
+
 .product-image {
   width: 100%;
   height: 180px;
@@ -255,6 +301,15 @@ th, td { border: 1px solid #e4e8ef; padding: .6rem; text-align: left; }
     scrollbar-width: thin;
     -webkit-overflow-scrolling: touch;
     mask-image: linear-gradient(to right, transparent 0, #000 4%, #000 96%, transparent 100%);
+  }
+
+  .nav-section {
+    flex: 0 0 auto;
+    justify-items: flex-start;
+  }
+
+  .nav-links {
+    flex-wrap: nowrap;
   }
 
   nav::-webkit-scrollbar {

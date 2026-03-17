@@ -13,19 +13,40 @@
       <h1>WJR Tecnosoluciones</h1>
     </div>
     <nav>
-      <a href="{{ url_for('home') }}">Inicio</a>
-      <a href="{{ url_for('servicios_reparacion') }}">Reparación y Repuestos</a>
-      <a href="{{ url_for('venta_mayor') }}">Venta al Mayor</a>
-      <a href="{{ url_for('contacto') }}">Contacto</a>
+      <div class="nav-section">
+        <span class="nav-section-label">Sitio</span>
+        <div class="nav-links">
+          <a href="{{ url_for('home') }}">Inicio</a>
+          <a href="{{ url_for('servicios_reparacion') }}">Reparación y Repuestos</a>
+          <a href="{{ url_for('venta_mayor') }}">Venta al Mayor</a>
+          <a href="{{ url_for('contacto') }}">Contacto</a>
+        </div>
+      </div>
+
       {% if current_user.is_authenticated %}
-        <a href="{{ url_for('carrito') }}">Carrito</a>
-        {% if current_user.is_admin %}<a href="{{ url_for('admin_dashboard') }}">Admin</a>{% endif %}
-        <a href="{{ url_for('logout') }}">Salir</a>
+      <div class="nav-section">
+        <span class="nav-section-label">Cuenta</span>
+        <div class="nav-links">
+          <a href="{{ url_for('carrito') }}">Carrito</a>
+          <a href="{{ url_for('logout') }}">Salir</a>
+        </div>
+      </div>
       {% else %}
-        <a href="{{ url_for('login') }}">Entrar</a>
-        <a href="{{ url_for('registro') }}">Registro</a>
+      <div class="nav-section">
+        <span class="nav-section-label">Acceso</span>
+        <div class="nav-links">
+          <a href="{{ url_for('login') }}">Entrar</a>
+          <a href="{{ url_for('registro') }}">Registro</a>
+        </div>
+      </div>
       {% endif %}
     </nav>
+
+    {% if current_user.is_authenticated and current_user.is_admin %}
+      <div class="admin-access">
+        <a href="{{ url_for('admin_dashboard') }}" class="btn">Panel Admin</a>
+      </div>
+    {% endif %}
   </header>
 
   <main class="{% block main_class %}{% endblock %}">
