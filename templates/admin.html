@@ -1,78 +1,84 @@
 {% extends 'base.html' %}
 {% block content %}
-<h2>Panel de administración</h2>
+<section class="admin-shell">
+  <h2>Panel de administración</h2>
 
-<section>
-  <h3>Crear producto</h3>
-  <form method="post" class="form" action="{{ url_for('crear_producto') }}" enctype="multipart/form-data">
-    <label>Nombre <input type="text" name="nombre" required></label>
-    <label>Descripción <textarea name="descripcion" required></textarea></label>
-    <label>Precio <input type="number" step="0.01" name="precio" required></label>
-    <label>Stock <input type="number" name="stock" required></label>
-    <label>Tipo
-      <select name="tipo">
-        <option value="reparacion">Reparación/Repuesto</option>
-        <option value="mayor">Venta al mayor</option>
-      </select>
-    </label>
-    <label>Imagen del producto (URL)
-      <input type="url" name="imagen_url" placeholder="https://...">
-    </label>
-    <label>o subir imagen
-      <input type="file" name="imagen_archivo" accept="image/*">
-    </label>
-    <button type="submit">Guardar producto</button>
-  </form>
-</section>
-
-<section>
-  <h3>Gestionar productos y precios</h3>
-  {% for p in productos %}
-  <form method="post" action="{{ url_for('actualizar_producto', producto_id=p.id) }}" class="form inline-form" enctype="multipart/form-data">
-    <input type="text" name="nombre" value="{{ p.nombre }}" required>
-    <input type="text" name="descripcion" value="{{ p.descripcion }}" required>
-    <input type="number" step="0.01" name="precio" value="{{ p.precio }}" required>
-    <input type="number" name="stock" value="{{ p.stock }}" required>
-    <select name="tipo">
-      <option value="reparacion" {% if p.tipo=='reparacion' %}selected{% endif %}>Reparación</option>
-      <option value="mayor" {% if p.tipo=='mayor' %}selected{% endif %}>Mayor</option>
-    </select>
-    <input type="url" name="imagen_url" value="{{ p.imagen_url or '' }}" placeholder="URL de imagen">
-    <input type="file" name="imagen_archivo" accept="image/*">
-    <button type="submit">Actualizar</button>
-  </form>
-  <form method="post" action="{{ url_for('eliminar_producto', producto_id=p.id) }}">
-    <button type="submit" class="danger">Eliminar producto</button>
-  </form>
-  <hr>
-  {% endfor %}
-</section>
-
-<section>
-  <h3>Acerca de nosotros y enlaces de contacto</h3>
-  <form method="post" class="form" action="{{ url_for('actualizar_acerca_de') }}">
-    <label>Título <input type="text" name="about_title" value="{{ site_content.about_title }}" required></label>
-    <label>Descripción
-      <textarea name="about_body" rows="4" required>{{ site_content.about_body }}</textarea>
-    </label>
-    <label>Link WhatsApp <input type="url" name="whatsapp_link" value="{{ site_content.whatsapp_link }}" required></label>
-    <label>Link Facebook <input type="url" name="facebook_link" value="{{ site_content.facebook_link }}" required></label>
-    <label>Link Instagram <input type="url" name="instagram_link" value="{{ site_content.instagram_link }}" required></label>
-    <button type="submit">Guardar sección y redes</button>
-  </form>
-</section>
-
-<section>
-  <h3>Gestionar usuarios</h3>
-  {% for u in usuarios %}
-    <div class="user-row">
-      <span>{{ u.nombre }} ({{ u.email }}) {% if u.is_admin %}[ADMIN]{% endif %}</span>
-      {% if not u.is_admin %}
-      <form method="post" action="{{ url_for('eliminar_usuario', user_id=u.id) }}">
-        <button type="submit" class="danger">Eliminar usuario</button>
+  <div class="admin-grid">
+    <section class="admin-section">
+      <h3>Sección: Catálogo</h3>
+      <h4>Crear producto</h4>
+      <form method="post" class="form admin-form" action="{{ url_for('crear_producto') }}" enctype="multipart/form-data">
+        <label>Nombre <input type="text" name="nombre" required></label>
+        <label>Descripción <textarea name="descripcion" required></textarea></label>
+        <label>Precio <input type="number" step="0.01" name="precio" required></label>
+        <label>Stock <input type="number" name="stock" required></label>
+        <label>Tipo
+          <select name="tipo">
+            <option value="reparacion">Reparación/Repuesto</option>
+            <option value="mayor">Venta al mayor</option>
+          </select>
+        </label>
+        <label>Imagen del producto (URL)
+          <input type="url" name="imagen_url" placeholder="https://...">
+        </label>
+        <label>o subir imagen
+          <input type="file" name="imagen_archivo" accept="image/*">
+        </label>
+        <button type="submit">Guardar producto</button>
       </form>
-      {% endif %}
-    </div>
-  {% endfor %}
+    </section>
+
+    <section class="admin-section admin-section-wide">
+      <h3>Sección: Edición de productos</h3>
+      {% for p in productos %}
+      <div class="admin-edit-card">
+        <form method="post" action="{{ url_for('actualizar_producto', producto_id=p.id) }}" class="form inline-form admin-inline-form" enctype="multipart/form-data">
+          <input type="text" name="nombre" value="{{ p.nombre }}" required>
+          <input type="text" name="descripcion" value="{{ p.descripcion }}" required>
+          <input type="number" step="0.01" name="precio" value="{{ p.precio }}" required>
+          <input type="number" name="stock" value="{{ p.stock }}" required>
+          <select name="tipo">
+            <option value="reparacion" {% if p.tipo=='reparacion' %}selected{% endif %}>Reparación</option>
+            <option value="mayor" {% if p.tipo=='mayor' %}selected{% endif %}>Mayor</option>
+          </select>
+          <input type="url" name="imagen_url" value="{{ p.imagen_url or '' }}" placeholder="URL de imagen">
+          <input type="file" name="imagen_archivo" accept="image/*">
+          <button type="submit">Actualizar</button>
+        </form>
+        <form method="post" action="{{ url_for('eliminar_producto', producto_id=p.id) }}" class="admin-delete-form">
+          <button type="submit" class="danger">Eliminar producto</button>
+        </form>
+      </div>
+      {% endfor %}
+    </section>
+
+    <section class="admin-section">
+      <h3>Sección: Contenido del sitio</h3>
+      <form method="post" class="form admin-form" action="{{ url_for('actualizar_acerca_de') }}">
+        <label>Título <input type="text" name="about_title" value="{{ site_content.about_title }}" required></label>
+        <label>Descripción
+          <textarea name="about_body" rows="4" required>{{ site_content.about_body }}</textarea>
+        </label>
+        <label>Link WhatsApp <input type="url" name="whatsapp_link" value="{{ site_content.whatsapp_link }}" required></label>
+        <label>Link Facebook <input type="url" name="facebook_link" value="{{ site_content.facebook_link }}" required></label>
+        <label>Link Instagram <input type="url" name="instagram_link" value="{{ site_content.instagram_link }}" required></label>
+        <button type="submit">Guardar sección y redes</button>
+      </form>
+    </section>
+
+    <section class="admin-section">
+      <h3>Sección: Usuarios</h3>
+      {% for u in usuarios %}
+        <div class="user-row">
+          <span>{{ u.nombre }} ({{ u.email }}) {% if u.is_admin %}[ADMIN]{% endif %}</span>
+          {% if not u.is_admin %}
+          <form method="post" action="{{ url_for('eliminar_usuario', user_id=u.id) }}">
+            <button type="submit" class="danger">Eliminar usuario</button>
+          </form>
+          {% endif %}
+        </div>
+      {% endfor %}
+    </section>
+  </div>
 </section>
 {% endblock %}
